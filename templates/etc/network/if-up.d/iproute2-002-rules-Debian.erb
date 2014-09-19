@@ -1,0 +1,13 @@
+#!/bin/sh
+###
+### File managed by Puppet
+###
+
+[ "$IFACE" != "lo" ] || exit 0
+
+#
+# Add rules
+#
+<% @rules.each do |value| -%>
+/sbin/ip rule add from <%= value['from'] %> to <%= value['to'] %> table <%= value['table'] %> priority <%= value['priority'] %>
+<% end -%>

@@ -1,0 +1,13 @@
+#!/bin/sh
+###
+### File managed by Puppet
+###
+
+[ "$IFACE" != "lo" ] || exit 0
+
+#
+# Add routes
+#
+<% @routes.each do |value| -%>
+/sbin/ip route add <%= value['network'] %> via <%= value['gateway'] %> table <%= value['table'] %>
+<% end -%>
