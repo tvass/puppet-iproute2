@@ -16,7 +16,7 @@ $rules = {},
             file { '/etc/network/if-up.d/iproute2-002-rules':
             ensure  => present,
             content => template('iproute2/etc/network/if-up.d/iproute2-002-rules-Debian.erb'),
-            mode    => '0644',
+            mode    => '0755',
             owner   => 'root',
             group   => 'root',
         }
