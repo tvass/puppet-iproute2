@@ -1,5 +1,5 @@
 name    'kernel23-iproute2'
-version '0.1.2'
+version '0.1.3'
 source 'https://github.com/kernel23/puppet-iproute2'
 author 'kernel23'
 license 'Apache License, Version 2.0'
