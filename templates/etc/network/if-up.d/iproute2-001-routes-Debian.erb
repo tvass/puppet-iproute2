@@ -9,5 +9,5 @@
 # Add routes
 #
 <% @routes.each do |value| -%>
-/sbin/ip route add <%= value['network'] %> via <%= value['gateway'] %> table <%= value['table'] %>
+/sbin/ip route add <%= value['network'] %><%if value.has_key?('gateway') %> via <%= value['gateway'] %><% end %> <%if value.has_key?('dev') %>dev <%= value['dev'] %><% end %><%if value.has_key?('src') %> src <%= value['src'] %><% end %> table <%= value['table'] %>
 <% end -%>
