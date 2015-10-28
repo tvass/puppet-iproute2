@@ -2,12 +2,11 @@
 ###
 ### File managed by Puppet
 ###
-
-[ "$IFACE" != "lo" ] || exit 0
-
-#
-# Add rules
-#
 <% @rules.each do |value| -%>
-/sbin/ip rule add from <%= value['from'] %> to <%= value['to'] %> table <%= value['table'] %> priority <%= value['priority'] %>
+<%if value.has_key?('dev') %>
+[ "$IFACE" == "<%= value['dev'] %>" ] || exit 0
+<% else %>
+[ "$IFACE" != "lo" ] || exit 0
+<% end %>
+/sbin/ip rule add from <%= value['from'] %><% if value.has_key?('to') %> to <%= value['to'] %><% end %> table <%= value['table'] %><% if value.has_key?('priority') %> priority <%= value['priority'] %><% end %>
 <% end -%>
