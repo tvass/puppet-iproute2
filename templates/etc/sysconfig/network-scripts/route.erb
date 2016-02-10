@@ -1,0 +1,6 @@
+###
+### File managed by Puppet
+###
+<% @routes.each do |value| -%>
+<%= value['network'] %><%if value.has_key?('gateway') %> via <%= value['gateway'] %><% end %> <%if value.has_key?('dev') %>dev <%= value['dev'] %><% end %><%if value.has_key?('src') %> src <%= value['src'] %><% end %>table <%= value['table'] %><%if value.has_key?('mtu') %> mtu <%= value['mtu'] %><% end %>
+<% end -%>
