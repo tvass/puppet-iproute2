@@ -40,21 +40,50 @@ You have different possibile approaches in the usage of this module.
           "224" : "isp2"
         }
 
+###Route and Rule Configuration
+
+For routes and rules there are two methods of invocation of the module due to differences in how RedHat and Debian store the configurations on disk. RedHat uses a per device configuration while Debian has a unified configuration.
+
+###Debian
+
 * Add routes :
 
          routes_hash => [
           {'network' => '1.2.3.0/24', 'gateway' => '10.0.0.1', 'table' => 'isp1'},
-          {'network' => '1.2.4.0/24', 'gateway' => '10.0.0.2', 'table' => 'isp2'}]
-         }
+          {'network' => '1.2.4.0/24', 'gateway' => '10.0.0.2', 'table' => 'isp2'}
+         ]
 
 * Add rules :
 
         rules_hash => [{'from' => '1.2.3.4', 'to' => '0.0.0.0/0', 'table' => 'isp1', 'priority' => '1000' }],
 
+
+###RedHat
+
+You need to specify the interface/dev as a top level key in the hash
+
+* add routes :
+
+         routes_hash => [
+          'eth0' => [ {'network' => '1.2.3.0/24', 'gateway' => '10.0.0.1', 'table' => 'isp1'},
+                      {'network' => '1.2.4.0/24', 'gateway' => '10.0.0.2', 'table' => 'isp2'}
+                    ],
+          'eth1' => [ {'network' => '1.2.3.0/24', 'gateway' => '10.0.0.1', 'table' => 'isp1'},
+                      {'network' => '1.2.4.0/24', 'gateway' => '10.0.0.2', 'table' => 'isp2'}
+                    ]
+          ]
+
+* Add rules :
+
+        rules_hash => [
+          'eth0' => [{'from' => '1.2.3.4', 'to' => '0.0.0.0/0', 'table' => 'isp1', 'priority' => '1000' } ]
+        ]
+
+
 ##Operating Systems Support
 
 This is tested on these OS:
-- Debian 7
+- Debian 7, Scientific Linux
 
 ##Development
 

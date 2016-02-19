@@ -9,20 +9,26 @@
 #  $routes = {"id" : "name"}
 
 define iproute2::routes(
-$routes = {},
+  $routes = {},
 ){
   case $::osfamily {
-        'Debian': {
-            file { '/etc/network/if-up.d/iproute2-001-routes':
-            ensure  => present,
-            content => template('iproute2/etc/network/if-up.d/iproute2-001-routes-Debian.erb'),
-            mode    => '0755',
-            owner   => 'root',
-            group   => 'root',
-        }
+    'Debian': {
+      file { '/etc/network/if-up.d/iproute2-001-routes':
+        ensure  => present,
+        content => template('iproute2/etc/network/if-up.d/iproute2-001-routes-Debian.erb'),
+        mode    => '0755',
+        owner   => 'root',
+        group   => 'root',
+      }
     }
-        default: {
-            alert("${::operatingsystem} not supported. No changes done here.")
-        }
+    'RedHat': {
+      $devs = keys($routes)
+      ::iproute2::redhat_routes { $devs :
+        routes_hash => $routes,
+      }
+    }
+    default: {
+      alert("${::operatingsystem} not supported. No changes done here.")
+    }
   }
 }

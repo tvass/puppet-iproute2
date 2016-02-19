@@ -9,20 +9,29 @@
 #  $rt_protos = {"id" : "name"}
 
 define iproute2::rt_protos(
-$rt_protos = {},
+  $rt_protos = {},
 ){
   case $::osfamily {
-        'Debian': {
-            file { '/etc/iproute2/rt_protos':
-            ensure  => present,
-            content => template('iproute2/etc/iproute2/rt_protos-Debian.erb'),
-            mode    => '0644',
-            owner   => 'root',
-            group   => 'root',
-        }
+    'Debian': {
+      file { '/etc/iproute2/rt_protos':
+        ensure  => present,
+        content => template('iproute2/etc/iproute2/rt_protos-Debian.erb'),
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
+      }
     }
-        default: {
-            alert("${::operatingsystem} not supported. No changes done here.")
-        }
+    'RedHat': {
+      file { '/etc/iproute2/rt_protos':
+        ensure  => present,
+        content => template('iproute2/etc/iproute2/rt_protos-RedHat.erb'),
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
+      }
+    }
+    default: {
+      alert("${::operatingsystem} not supported. No changes done here.")
+    }
   }
 }
