@@ -2,5 +2,5 @@
 ### File managed by Puppet
 ###
 <% @rules.each do |value| -%>
-from <%= value['from'] %><% if value.has_key?('to') %> to <%= value['to'] %><% end %> table <%= value['table'] %><% if value.has_key?('priority') %> priority <%= value['priority'] %><% end %>
+<% if value.has_key?('from') %>from <%= value['from'] %> <% end -%><% if value.has_key?('to') %>to <%= value['to'] %> <% end %>table <%= value['table'] %><% if value.has_key?('priority') %> priority <%= value['priority'] %><% end %>
 <% end -%>
