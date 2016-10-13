@@ -83,7 +83,7 @@ You need to specify the interface/dev as a top level key in the hash
 ##Operating Systems Support
 
 This is tested on these OS:
-- Debian 7, Scientific Linux
+- Debian 7/8, Red Hat, Scientific Linux
 
 ##Development
 
