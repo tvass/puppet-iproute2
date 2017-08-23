@@ -4,9 +4,13 @@
 ###
 <% @routes.each do |value| -%>
 <%if value.has_key?('dev') %>
-[ "$IFACE" == "<%= value['dev'] %>" ] || exit 0
+if [ "$IFACE" = "<%= value['dev'] %>" ]; then
 <% else %>
-[ "$IFACE" != "lo" ] || exit 0
+if [ "$IFACE" != "lo" ]; then
 <% end %>
-/sbin/ip route add <%= value['network'] %><%if value.has_key?('gateway') %> via <%= value['gateway'] %><% end %> <%if value.has_key?('dev') %>dev <%= value['dev'] %><% end %><%if value.has_key?('src') %> src <%= value['src'] %><% end %> table <%= value['table'] %>
+  /sbin/ip route add <%= value['network'] %> <%if value.has_key?('dev') %>dev <%= value['dev'] %><% end %><%if value.has_key?('src') %> src <%= value['src'] %><% end %> table <%= value['table'] %>
+  <%if value.has_key?('gateway') %>
+  /sbin/ip route add default via <%= value['gateway'] %> table <%= value['table'] %>
+  <%end%>
+fi
 <% end -%>

@@ -4,9 +4,10 @@
 ###
 <% @rules.each do |value| -%>
 <%if value.has_key?('dev') %>
-[ "$IFACE" == "<%= value['dev'] %>" ] || exit 0
+if [ "$IFACE" = "<%= value['dev'] %>" ]; then
 <% else %>
-[ "$IFACE" != "lo" ] || exit 0
+if [ "$IFACE" = "lo" ]; then
 <% end %>
-/sbin/ip <% if value['ipv6'] -%>-6<% end -%> rule add <% if value.has_key?('fwmark') %> fwmark <%= value['fwmark'] %><% end -%><% if value.has_key?('from') %> from <%= value['from'] %><% end -%><% if value.has_key?('to') %> to <%= value['to'] %><% end %> table <%= value['table'] %><% if value.has_key?('priority') %> priority <%= value['priority'] %><% end %>
+  /sbin/ip <% if value['ipv6'] -%>-6<% end -%> rule add <% if value.has_key?('fwmark') %> fwmark <%= value['fwmark'] %><% end -%><% if value.has_key?('from') %> from <%= value['from'] %><% end -%><% if value.has_key?('to') %> to <%= value['to'] %><% end %> table <%= value['table'] %><% if value.has_key?('priority') %> priority <%= value['priority'] %><% end %>
+fi
 <% end -%>
