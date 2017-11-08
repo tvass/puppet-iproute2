@@ -1,19 +1,19 @@
-#puppet-iproute2
+# puppet-iproute2
 
   Work in progress.
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 4. [Usage](#usage)
 5. [Operating Systems Support](#operating-systems-support)
 6. [Development](#development)
 
-##Overview
+## verview
 
 This module configures iproute2.
 
-##Usage
+## Usage
 
 You have different possibile approaches in the usage of this module.
 
@@ -40,11 +40,11 @@ You have different possibile approaches in the usage of this module.
           "224" : "isp2"
         }
 
-###Route and Rule Configuration
+### Route and Rule Configuration
 
 For routes and rules there are two methods of invocation of the module due to differences in how RedHat and Debian store the configurations on disk. RedHat uses a per device configuration while Debian has a unified configuration.
 
-###Debian
+### Debian
 
 * Add routes :
 
@@ -58,7 +58,7 @@ For routes and rules there are two methods of invocation of the module due to di
         rules_hash => [{'from' => '1.2.3.4', 'to' => '0.0.0.0/0', 'table' => 'isp1', 'priority' => '1000' }],
 
 
-###RedHat
+### RedHat
 
 You need to specify the interface/dev as a top level key in the hash
 
@@ -80,11 +80,11 @@ You need to specify the interface/dev as a top level key in the hash
         ]
 
 
-##Operating Systems Support
+## Operating Systems Support
 
 This is tested on these OS:
 - Debian 7/8, Red Hat, Scientific Linux
 
-##Development
+## Development
 
 Pull requests (PR) and bug reports via GitHub are welcomed.
